@@ -35,4 +35,4 @@ instance.interceptors.request.use( function (config) {
 If everything done right, label will be switched to "Checked!" and user-related info will be provided, proving that this User is indeed authorized and can access protected routes.
 
 Loggin-out procedure is based on removing token and reloading page, which returns us to the initial stage.  
-![Auth Stages](https://github.com/lastpwnd/req-example/raw/main/public/testapp.jpg)
+![Auth Stages](https://github.com/lastpwnd/req-example/raw/master/public/testapp.jpg)
