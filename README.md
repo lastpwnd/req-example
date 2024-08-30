@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+## Using Axios for Auth Requests
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+>>This is just a quick example, best practises were not applied. 
 
-## Available Scripts
+A single component with conditional behavior, main task is to demonstrate the _**Front**_ & _**Back**_ ends interaction using Axios HTTP Client.
 
-In the project directory, you can run:
+Forms are rendered depending on stage you are currently at. By default register and login forms are available. Data is validated by server, so if you recieve _**400 Bad Request**_ errors feel free to to check `/api/v1/docs` for references and `User` model itself in `/models/User.js` on our practicum project repository ( https://github.com/Code-the-Dream-School/gg-pac-team7-back )
 
-### `npm start`
+Totally 3 requests were covered in this example:
+* Register User `/api/v1/auth/register` POST
+* Login User `/api/v1/auth/login` POST
+* Check Status `/api/v1/auth/me` GET
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+After you successfull logged in (_after registration or not, it doesn't matter_), JSON Web Token is provided and saved in the `localStorage`. For these 2 requests standard headers are applied. When you'll see the label "Unchecked" and "Check Authentication" button, it means that you are at the last stage. Normally it's done in the code without any user actions required, but in this example for futher clarity, you have to initiate process by pressing the button. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+However, the "Check Status" request is a bit different. In order to receive status _**200 OK**_ response, you have to send authorization data. Using token value from localStorage is not enough, a special request header "Authorization" must be formed, in this example it's done like this:
 
-### `npm test`
+```
+axios.defaults.headers.common['Authorization'] = "Bearer " + window.localStorage.getItem('token');
+```
+Later in our practicum project, Front-End app will have to check User's status every time new request is formed, otherwise protected routes won't be accessible. In this case, better practise is to make axios configure new request automatically, by using its own _**middleware**_. The idea of middleware functions is to manipulate requests before they are handled by the main application logic, in axios a characteristic name `interceptors` is given to them. Here is the example:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+...
 
-### `npm run build`
+instance.interceptors.request.use( function (config) {
+    config.headers.Authorization = "Bearer "+ window.localStorage.getItem('token')
+    return config
+}, function (error) {
+    return Promise.reject(error)
+})
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+...
+```
+If everything done right, label will be switched to "Checked!" and user-related info will be provided, proving that this User is indeed authorized and can access protected routes.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Loggin-out procedure is based on removing token and reloading page, which returns us to the initial stage.  
+![Auth Stages](https://github.com/lastpwnd/testapp/raw/main/public/testapp.jpg)
