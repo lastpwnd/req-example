@@ -11,7 +11,7 @@ Totally 3 requests were covered in this example:
 * Login User `/api/v1/auth/login` POST
 * Check Status `/api/v1/auth/me` GET
 
-After you successfull logged in (_after registration or not, it doesn't matter_), JSON Web Token is provided and saved in the `localStorage`. For these 2 requests standard headers are applied. When you'll see the label "Unchecked" and "Check Authentication" button, it means that you are at the last stage. Normally it's done in the code without any user actions required, but in this example for futher clarity, you have to initiate process by pressing the button. 
+After you successfully logged in (_registration is not necessary_), JSON Web Token is provided and saved in the `localStorage`. For these 2 requests standard headers are applied. When you'll see the label "Unchecked" and "Check Authentication" button, it means that you are at the last stage. Normally it's done in the code without any user actions required, but in this example for futher clarity, you have to initiate process by pressing the button. 
 
 However, the "Check Status" request is a bit different. In order to receive status _**200 OK**_ response, you have to send authorization data. Using token value from localStorage is not enough, a special request header "Authorization" must be formed, in this example it's done like this:
 
