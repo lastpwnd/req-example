@@ -15,12 +15,12 @@ Registration form will be hidden, if you have successfully registered new User a
 
 When you'll see the label **"Unchecked"** and **"Check Authentication"** button, it means that you are at the last stage. Normally it's done in the app without any user actions required, but in this example for futher clarity, you have to initiate process by pressing the button.
 
-For previous 2 requests (Register & Login) standard headers are applied. However, the **"Check Status"** request is a little bit different. In order to receive status _**200 OK**_ response, you have to send _**authorization data**_. Using token value from localStorage is not enough, a special request header `"Authorization"` must be formed, in this example it's done like this:
+For previous 2 requests (Register & Login) standard headers are applied. However, the **"Check Status"** request is a little bit different. In order to receive status _**200 OK**_ response, you have to send _**authorization data**_. Using token value from localStorage is not enough, a special request header `"Authorization"` must be formed, in this example it's done in the request itself:
 
 ```
 axios.defaults.headers.common['Authorization'] = "Bearer " + window.localStorage.getItem('token');
 ```
-Later in our practicum project, Front-End app will have to check User's status every time new request is formed, otherwise protected routes won't be accessible. In this case, better practise is to make axios configure new request automatically, by using its own _**middleware**_. The idea of middleware functions is to manipulate requests before they are handled by the main application logic, in axios a characteristic name `interceptors` is given to them. Here is the example:
+Later in our practicum project, application will have to check User's status every time new request is formed, otherwise protected routes won't be accessible. In this case, better practise is to make axios modify new request automatically, by using its own _**middleware**_. The idea of middleware functions is to manipulate requests _**before**_ they are handled by the main application logic, in axios a characteristic name `interceptors` is given to them. Here is the example:
 
 ```
 ...
@@ -34,7 +34,7 @@ instance.interceptors.request.use( function (config) {
 
 ...
 ```
-If everything done right, label will change to "Checked!" and user-related info will be provided, proving that this User is indeed authorized and can access protected routes.
+Back to application. If everything done right, label will change to "Checked!" and user-related info will be provided, proving that this User is indeed authorized and can access protected routes.
 
 Loggin-out procedure is based on removing token and reloading page, which returns us to the initial stage.
 
