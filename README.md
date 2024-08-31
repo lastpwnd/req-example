@@ -2,7 +2,7 @@
 
 >>This is just a quick example, best practises were not applied
 
-A single component app with conditional behavior, main task is to demonstrate the _**Front**_ & _**Back**_ ends interaction using Axios HTTP Client
+A single component app with conditional behavior, main task is to demonstrate the _**Front**_ & _**Back**_ ends interaction using Axios HTTP Client.  
 Forms are rendered depending on stage you are currently at. By default, register and login forms are available.
 
 Totally 3 requests were covered in this example:
