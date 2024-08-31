@@ -11,11 +11,11 @@ Totally 3 requests were covered in this example:
 
 Registration form requires all input to be filled, except `AvatarUrl`; for login - all fields are mandatory. Server will validate values after you click **"Register"** or **"Login"** buttons, all validation rules for these functions you can find in https://github.com/Code-the-Dream-School/gg-pac-team7-back/blob/main/src/middleware/auth.js inside two arrays: `registerValidation` and `loginValidation` respectively. If you still recieving errors, feel free to check `/api/v1/docs` for more detailed info.
 
-Registration form will be hidden, if you have successfully registered new User and Login form will be the only one left. After you successfully logged in (_registration can be skipped, if you have already done this before_), JSON Web Token is provided and saved in the `localStorage`. For these 2 requests (Register & Login) standard headers are applied. 
+Registration form will be hidden, if you have successfully registered new User and Login form will be the only one left. After you successfully logged in (_registration can be skipped, if you have already done this before_), JSON Web Token is provided and saved in the `localStorage`.
 
 When you'll see the label **"Unchecked"** and **"Check Authentication"** button, it means that you are at the last stage. Normally it's done in the app without any user actions required, but in this example for futher clarity, you have to initiate process by pressing the button.
 
-However, the **"Check Status"** request is a bit different. In order to receive status _**200 OK**_ response, you have to send _**authorization data**_. Using token value from localStorage is not enough, a special request header `"Authorization"` must be formed, in this example it's done like this:
+For previous 2 requests (Register & Login) standard headers are applied. However, the **"Check Status"** request is a little bit different. In order to receive status _**200 OK**_ response, you have to send _**authorization data**_. Using token value from localStorage is not enough, a special request header `"Authorization"` must be formed, in this example it's done like this:
 
 ```
 axios.defaults.headers.common['Authorization'] = "Bearer " + window.localStorage.getItem('token');
