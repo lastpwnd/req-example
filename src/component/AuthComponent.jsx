@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 const AuthComponent = () => {
@@ -18,34 +19,40 @@ useEffect(() => { // checking if token already exists
 }, [])
 
 
-const registerUser = async (e) => { // register
+const registerUser = async (e) => { // register user
     e.preventDefault()
     
     const firstName = document.getElementById('firstName').value
     const lastName = document.getElementById('lastName').value
+    const userName = document.getElementById('userName').value
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
-    const avatarUrl= document.getElementById('avatarUrl').value
+    const repeatPassword = document.getElementById('repeatPassword').value
 
-       try {
-        await axios.post(`${URL}/auth/register`,
-            {
-                firstName, 
-                lastName,
-                email,
-                password,
-                avatarUrl,
-            }).then((res) => {
-                console.log(res); 
-                if (res.status === 201) 
-                    setIsReged(true)         
-            })          
-       } catch (error) {
-            console.log(error);
-       }      
+    if (password !== repeatPassword){
+        window.alert("Your passwords do not match!")
+    }
+    else{
+        try {
+            await axios.post(`${URL}/auth/register`,
+                {
+                    firstName, 
+                    lastName,
+                    userName,
+                    email,
+                    password
+                }).then((res) => {
+                    console.log(res); 
+                    if (res.status === 201 ) 
+                        setIsReged(true)         
+                })          
+           } catch (error) {
+                console.log(error);
+           }   
+    }   
 }
 
-const loginUser = async (e) => { // login
+const loginUser = async (e) => { // login user
     e.preventDefault()
 
     const email = document.getElementById('email2').value
@@ -58,10 +65,10 @@ const loginUser = async (e) => { // login
                 email,
                 password
             }).then((res) => {
-                payload = res.data         
+                payload = res.data       
             })
     } catch (error) {
-        console.log(error)       
+          console.log(error)            
     }
     
     if (payload.token) {
@@ -71,16 +78,15 @@ const loginUser = async (e) => { // login
     }      
 }
 
-const checkAuth = async (e) => { // auth check
+const checkAuth = async (e) => { // authentication check
     e.preventDefault()
     try {
-        axios.defaults.headers.common['Authorization'] = "Bearer " + window.localStorage.getItem('token');
+        axios.defaults.headers.common['Authorization'] = "Bearer " + window.localStorage.getItem('token')
         await axios.get(`${URL}/auth/me`)
         .then((res) => {
             console.log(res);
             setUserCred([res.data.email, res.data._id]) 
-            setFinalCheck(true)
-            console.log(userCred);      
+            setFinalCheck(true)  
         })
     } catch (error) {      
     }
@@ -104,12 +110,14 @@ return (
                     <input type="text" id="firstName" name="firstName" /><br />
                     <label>Last Name: </label>
                     <input type="text" id="lastName" name="lastName" /><br />
+                    <label>User Name: </label>
+                    <input type="text" id="userName" name="userName" /><br />
                     <label>Email: </label>
                     <input type="text" id="email" name="email" /><br />
                     <label>Password: </label>
                     <input type="password" id="password" name="password" /><br />
-                    <label>Avatar URL: </label>
-                    <input type="text" id="avatarUrl" name="avatarUrl" /><br />
+                    <label>Repeat password: </label>
+                    <input type="password" id="repeatPassword" name="repeatPassword" /><br />
                     <button type="submit">Register</button>
                 </form> 
                 </div>
@@ -123,10 +131,12 @@ return (
                     (finalCheck) 
                                 ? <>
                                     <h1>Checked!</h1>
-                                   <p>User info is: <br />
+                                    <p>User info is: <br />
                                     E-mail: {userCred[0]}<br />
                                     ID: {userCred[1]}</p>
-                                    <button onClick={backToStart}>Erase Token & Log Out</button>
+                                    <button onClick={backToStart}>Erase Token & Log Out</button><br />
+                                    <h3>OR</h3><br />
+                                    <button><Link to="/profile"> Go to Profile </Link></button>
                                 </>
                                 : 
                                 <>

@@ -1,15 +1,18 @@
-## Using Axios for Auth Requests
+## Using Axios for Requests
 
 >>This is just a quick example, best practises were not applied
 
-A single component app with conditional behavior, main task is to demonstrate the _**Front**_ & _**Back**_ ends interaction using Axios HTTP Client. Forms are rendered depending on stage you are currently at and by default, **Register** and **Login** forms are available.
+An application with conditional behavior, main task is to demonstrate the _**Front**_ & _**Back**_ ends interaction using Axios HTTP Client.
 
-Totally 3 requests were covered in this example:
+Totally 6 requests were covered in this example:
 * Register User `/api/v1/auth/register` POST
 * Login User `/api/v1/auth/login` POST
 * Check Status `/api/v1/auth/me` GET
+* Profile `/api/v1/profile` GET
+* Profile Edit Mode `/api/v1/profile/edit` GET
+* Profile Update `/api/v1/profile/edit` PUT
 
-Registration form requires all input to be filled, except `AvatarUrl`; for login - all fields are mandatory. Server will validate values after you click **"Register"** or **"Login"** buttons, all validation rules for these functions you can find in https://github.com/Code-the-Dream-School/gg-pac-team7-back/blob/main/src/middleware/auth.js inside two arrays: `registerValidation` and `loginValidation` respectively. If you still recieving errors, feel free to check `/api/v1/docs` for more detailed info.
+Registration form requires all input to be filled, except `username`; for login - all fields are mandatory.
 
 Registration form will be hidden, if you have successfully registered new User and Login form will be the only one left. After you successfully logged in (_registration can be skipped, if you have already done this before_), JSON Web Token is provided and saved in the `localStorage`.
 
@@ -35,7 +38,9 @@ instance.interceptors.request.use( function (config) {
 ...
 ```
 Back to application. If everything done right, label will change to "Checked!" and user-related info will be provided, proving that this User is indeed authorized and can access protected routes.
-
 Loggin-out procedure is based on removing token and reloading page, which returns us to the initial stage.
 
-![Auth Stages](https://github.com/lastpwnd/req-example/raw/master/public/testapp.jpg)
+Also you enter the profile section and explore your own info and even modify your data by entering `Edit Section` by clicking "_**Edit Profile**_"
+Current data will be uploaded, including `firstname`, `lastname`, `username` (_not necessary_) and your avatar. 
+Clicking on any avatar inside right section will leave a focus on it, meaning that after update it will chosen as new one.
+In order to update user profile valid password must be provided, and after submitting form, you will be redirected back to profile page and see the changes you recently made.

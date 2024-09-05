@@ -35,6 +35,16 @@ h1 {
   line-height: 1.1;
 }
 
+h2 {
+  text-wrap:stable;
+}
+
+.bookmark {
+  padding: 5px;
+  margin: 5px;
+  border: 1px dashed #646cff;
+}
+
 .container{
   display: flex;
   flex-direction: column;
@@ -44,12 +54,66 @@ h1 {
   width: auto;
 }
 
+.container1{
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  margin: 10px;
+  padding: auto;
+  width: auto;
+}
+
+.container3 {
+  margin: 20px;
+  display:flex;
+  flex-direction: column;
+  padding: 25px;
+  border: 1px solid #646cff;
+  border-radius: 10px;
+}
+
+.container2{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content:center;
+  margin: 25px;
+  padding: 25px;
+  border: 1px solid #646cff;
+  border-radius: 10px;
+}
+
+button.avatarButton {
+  border-radius: 50%;
+  height:128px;
+  width:128px;
+  display: block;
+}
+
+img.avatarButton {
+  position:relative;
+  top:-12px;
+  left: -22px;
+  height:128px;
+  width:128px;
+}
+
+img.avatarButton:hover {
+  outline: 4px solid #FFF;
+  border-radius: 50%;
+}
+
+button.avatarButton:focus 
+ {
+  outline: 5px solid #FFF;;
+}
+
 button {
   margin: 10px;
+  padding: 10px 20px;
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  font-size: 1.3em;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
@@ -76,10 +140,6 @@ button {
 
 button:hover {
   border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
