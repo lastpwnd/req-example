@@ -40,7 +40,7 @@ instance.interceptors.request.use( function (config) {
 Back to application. If everything done right, label will change to "Checked!" and user-related info will be provided, proving that this User is indeed authorized and can access protected routes.
 Loggin-out procedure is based on removing token and reloading page, which returns us to the initial stage.
 
-Also you enter the profile section and explore your own info and even modify your data by entering `Edit Section` by clicking "_**Edit Profile**_"
-Current data will be uploaded, including `firstname`, `lastname`, `username` (_not necessary_) and your avatar. 
+Also you can enter the profile section and explore your own `credentials`, your `bookmarks` and even modify your data by entering `Edit Section` by clicking "_**Edit Profile**_"
+Current data will be uploaded, including `firstname`, `lastname`, `username` (_not necessary_) and your avatar. All field required are marked with asterisk `*`
 Clicking on any avatar inside right section will leave a focus on it, meaning that after update it will chosen as new one.
 In order to update user profile valid password must be provided, and after submitting form, you will be redirected back to profile page and see the changes you recently made.

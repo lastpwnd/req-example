@@ -111,7 +111,7 @@ return (
                                                 <input type="text" id="firstName" name="firstName" autoComplete='off' defaultValue={dataFetched.firstName}/><br />
                                                 <label>Last Name: *</label>
                                                 <input type="text" id="lastName" name="lastName" autoComplete='off' defaultValue={dataFetched.lastName}/><br />
-                                                <label>Username: *</label>
+                                                <label>Username:</label>
                                                 <input type="text" id="userName" name="userName" autoComplete='off' defaultValue={dataFetched.userName}/><br /> 
                                                 {/* <input type="text" id="avatarUrl" hidden name="avatarUrl" autoComplete='off' defaultValue={dataFetched.avatarUrl}/>                                     */}
                                                 <label>Password: *</label>
