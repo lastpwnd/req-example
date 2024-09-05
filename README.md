@@ -9,6 +9,7 @@ Totally 6 requests were covered in this example:
 * Login User `/api/v1/auth/login` POST
 * Check Status `/api/v1/auth/me` GET
 * Profile `/api/v1/profile` GET
+* Get Bookmarks `/api/v1/bookmarks` GET
 * Profile Edit Mode `/api/v1/profile/edit` GET
 * Profile Update `/api/v1/profile/edit` PUT
 
