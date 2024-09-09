@@ -29,21 +29,35 @@ const registerUser = async (e) => { // register user
     const password = document.getElementById('password').value
     const repeatPassword = document.getElementById('repeatPassword').value
 
+    
+
     if (password !== repeatPassword){
         window.alert("Your passwords do not match!")
     }
     else{
         try {
+            let dataToSend
+                if (!userName){
+                        dataToSend = { 
+                            firstName, 
+                            lastName,
+                            email,
+                            password
+                        }
+                    } 
+                    else dataToSend = {
+                        firstName, 
+                        lastName,
+                        userName,
+                        email,
+                        password
+                    }
+            
             await axios.post(`${URL}/auth/register`,
-                {
-                    firstName, 
-                    lastName,
-                    userName,
-                    email,
-                    password
-                }).then((res) => {
+                dataToSend)
+                .then((res) => {
                     console.log(res); 
-                    if (res.status === 201 ) 
+                    if (res.status === 201 || res.status === 200) 
                         setIsReged(true)         
                 })          
            } catch (error) {
