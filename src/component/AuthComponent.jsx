@@ -24,7 +24,6 @@ const registerUser = async (e) => { // register user
     
     const firstName = document.getElementById('firstName').value
     const lastName = document.getElementById('lastName').value
-    const userName = document.getElementById('userName').value
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
     const repeatPassword = document.getElementById('repeatPassword').value
@@ -36,19 +35,10 @@ const registerUser = async (e) => { // register user
     }
     else{
         try {
-            let dataToSend
-                if (!userName){
-                        dataToSend = { 
-                            firstName, 
-                            lastName,
-                            email,
-                            password
-                        }
-                    } 
-                    else dataToSend = {
+            
+                  let dataToSend = {
                         firstName, 
                         lastName,
-                        userName,
                         email,
                         password
                     }
